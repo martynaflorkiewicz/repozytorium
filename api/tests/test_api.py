@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 import importlib.util
+import uuid
 
 
 API_DIR = Path(__file__).resolve().parents[1]
@@ -57,18 +58,21 @@ def test_login_non_existing_user():
 def test_create_user_as_admin():
     token = get_token("admin", "admin123")
 
+    username = f"test_user_{uuid.uuid4().hex[:8]}"
+
     response = client.post(
         "/users",
         headers={"Authorization": f"Bearer {token}"},
         json={
-            "username": "test_user_1",
+            "username": username,
             "password": "test123",
             "roles": ["ROLE_USER"],
         },
     )
 
     assert response.status_code == 200
-    assert response.json()["username"] == "test_user_1"
+    assert response.json()["username"] == username
+
 
 
 def test_create_user_without_token():
