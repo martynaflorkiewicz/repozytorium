@@ -1,0 +1,6 @@
+path: C:\Users\LENOVO\pycharmprojects\pythonproject3\dataset
+train: images/train
+val: images/val
+
+names:
+  0: plate
