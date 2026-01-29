@@ -26,6 +26,16 @@ with open("data/tags.csv", encoding="utf-8") as f:
     for row in reader:
         session.add(Tag(**row))
 
+import bcrypt
+from models import User
+
+import bcrypt
+from models import User
+
+admin_pw = bcrypt.hashpw(b"admin123", bcrypt.gensalt()).decode("utf-8")
+session.add(User(username="admin", password_hash=admin_pw, roles="ROLE_ADMIN"))
+
+
 session.commit()
 session.close()
 
